@@ -1,17 +1,18 @@
 module ActiveTriples
   class NodeConfig
-    attr_accessor :predicate, :term, :class_name, :type, :behaviors, :cast, :indexed, :sortable, :tokenize, :range, :multiple
+    attr_accessor :predicate, :term, :class_name, :type, :behaviors, :cast, :data_type
 
     def initialize(term, predicate, args={})
       self.term = term
       self.predicate = predicate
       self.class_name = args.fetch(:class_name) { default_class_name }
       self.cast = args.fetch(:cast) { true }
-      self.indexed = args.fetch(:indexed) { false }
-      self.sortable = args.fetch(:sortable) { false }
-      self.tokenize = args.fetch(:tokenize) { false }
-      self.range = args.fetch(:range) { false }
-      self.multiple = args.fetch(:multiple) { false }
+
+
+      self.behaviors = args.fetch(:behaviors) { [] }
+      self.data_type = args.fetch(:data_type) { nil }
+
+
       yield(self) if block_given?
     end
 
